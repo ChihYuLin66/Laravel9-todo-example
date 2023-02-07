@@ -9,8 +9,10 @@ class Todo extends Model
 {
     use HasFactory;
 
-    public function contents()
+    protected $fillable = ['completed'];
+
+    public function content()
     {
-        return $this->hasMany(TodoContent::class);
+        return $this->hasOne(TodoContent::class);
     }
 }
