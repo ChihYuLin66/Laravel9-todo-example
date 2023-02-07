@@ -49,7 +49,7 @@
                                 
                                     <div class="relative flex items-stretch w-full mb-3">
                                         <p v-for="todo in todos" :key="todo.id">
-                                            @{{ todo.contnet }}
+                                            @{{ todo.content }} 
                                         </p>
                                     </div>
 
@@ -82,8 +82,9 @@
                     axios
                       .get(apiUrl)
                       .then((response) => {
+                        this.todos = response.data.data;
 
-                        console.log(response);
+                        console.log(response.data.data);
                       })
                 },
                 store() {
@@ -91,9 +92,7 @@
                     axios
                       .post(apiUrl, { content })
                       .then((response) => {
-                        this.todos = response.data;
                         console.log(response);
-                        console.log(this.todos);
                       })
                 },
                 update() {

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\TodoService;
 use App\Traits\ApiResponseTrait;
+use App\Http\Requests\TodoRequest;
 use Illuminate\Support\Facades\Validator;
 
 class TodoController extends Controller
@@ -16,18 +17,8 @@ class TodoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $validator = Validator::make($request->all(), [
-            // 'page' => 'required|integer',
-            // 'count' => 'integer',
-            // 'type' => 'integer|in:0,1',
-        ]);
-    
-        if ($validator->fails()) {
-            return $this->errorResponse($validator->errors(), 'invalid');
-        }
-
         $todoService = new TodoService();
         $todos = $todoService->getList();
 
@@ -40,18 +31,8 @@ class TodoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TodoRequest $request)
     {
-        $validator = Validator::make($request->all(), [
-            'content' => 'required',
-            // 'count' => 'integer',
-            // 'type' => 'integer|in:0,1',
-        ]);
-
-        if ($validator->fails()) {
-            return $this->errorResponse($validator->errors(), 'invalid');
-        }
-
         $todoService = new TodoService();
         $todo = $todoService->store([
             'content' => $request->content
