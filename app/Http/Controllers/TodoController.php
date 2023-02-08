@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Services\TodoService;
 use App\Traits\ApiResponseTrait;
-use App\Http\Requests\TodoRequest;
+use App\Http\Requests\TodoStoreRequest;
 use Illuminate\Support\Facades\Validator;
 
 class TodoController extends Controller
@@ -31,7 +31,7 @@ class TodoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(TodoRequest $request)
+    public function store(TodoStoreRequest $request)
     {
         $todoService = new TodoService();
         $todo = $todoService->store([
