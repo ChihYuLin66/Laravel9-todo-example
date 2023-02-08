@@ -6,15 +6,21 @@ use App\Models\Todo;
 
 class TodoRepository
 {
+    /**
+     * Todo model
+     * var Todo
+     */
+    private Todo $todo;
+
     public function __construct()
     {
-
+        $this->todo = new Todo;
     }
 
     public function find($id)
     {
         try {
-            return Todo::find($id);
+            return $this->todo->find($id);
         } catch (Exception $exception) {
             throw $exception;
         }
@@ -27,8 +33,7 @@ class TodoRepository
      */
     public function getList()
     {
-        $todoList = Todo::get();
-        return $todoList;
+        return $this->todo->get()->load('content');
     }
 
     /**
@@ -39,7 +44,7 @@ class TodoRepository
      */
     public function store($data = [])
     {
-        $todo = Todo::create();
+        $todo = $this->todo->create();
         return $todo->id;
     }
 

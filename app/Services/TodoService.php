@@ -11,9 +11,11 @@ use App\Repositories\TodoContentRepository;
 
 class TodoService
 {
+    private TodoRepository $todoRepository;
+    
     public function __construct()
     {
-
+        $this->todoRepository = new TodoRepository;
     }
 
     /**
@@ -23,39 +25,14 @@ class TodoService
      */
     public function getList()
     {
-        $todoRepository = new TodoRepository;
-        $todoContentRepository = new TodoContentRepository;
+        $todos = $this->todoRepository->getList();
 
-        // 取 list
-        $todos = $todoRepository->getList();
-
-        // 
-        $todos->load('content');
-        
         return $todos->map(fn ($todo) => [
             'id' => $todo->id,
             'content' => $todo->content->content,
             'completed' => $todo->completed,
             'created_at' => $todo->created_at->format('Y.m.d H:i')
         ]);
-
-        // 取 todoListId 列表
-        // $idList = collect($todoList)->pluck('id')->all();
-
-        // // 取 content
-        // $todoContent = $todoContentRepository->getContent($idList);
-
-        // 組合資料
-        // $data = [];
-        // foreach ($todoList as $val) {
-        //     $data[] = [
-        //         'todoListId' => $val['id'],
-        //         'content' => $todoContent[$val['id']],
-        //         'completed' => $val['completed'],
-        //     ];
-        // }
-
-        // return $data;
     }
 
     /**

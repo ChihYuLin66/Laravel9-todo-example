@@ -6,15 +6,21 @@ use App\Models\TodoContent;
 
 class TodoContentRepository
 {
+    /**
+     * TodoContent model
+     * var TodoContent
+     */
+    private TodoContent $todoContent;
+
     public function __construct()
     {
-        
+        $this->todoContent = new TodoContent;
     }
 
     public function find($id)
     {
         try {
-            return TodoContent::find($id);
+            return $this->todoContent->find($id);
         } catch (Exception $exception) {
             throw $exception;
         }
@@ -29,11 +35,10 @@ class TodoContentRepository
      */
     public function store($todoId, $data)
     {
-        $todoContent = new TodoContent;
-        $todoContent->todo_id = $todoId;
-        $todoContent->content = $data['content'];
-        $todoContent->save();
-        return $todoContent;
+        $this->todoContent->todo_id = $todoId;
+        $this->todoContent->content = $data['content'];
+        $this->todoContent->save();
+        return $this->todoContent;
     }
     
 }
