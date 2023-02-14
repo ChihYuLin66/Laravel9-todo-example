@@ -49,10 +49,9 @@
                                 
                                     <div class="relative flex items-stretch w-full mb-3">
                                         <p v-for="todo in todos" :key="todo.id">
-                                            @{{ todo.content }} 
+                                            @{{ todo.content }}
                                         </p>
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -66,7 +65,7 @@
 
         <script>
         const { createApp } = Vue;
-        const apiUrl = '/api/todos';
+        const apiUrl = '/api/v1/todos';
         
         createApp({
             data() {
@@ -93,6 +92,8 @@
                       .post(apiUrl, { content })
                       .then((response) => {
                         console.log(response);
+
+                        this.getList();
                       })
                 },
                 update() {
